@@ -1,60 +1,193 @@
-# Criador de currículos
+# currículo.digital
 
-Um template para diferentes colaboradores preencherem seus próprios dados, escolherem o visual e gerarem o currículo. Funciona no navegador, sem instalar dependências ou criar conta. A página começa sem dados pessoais predefinidos.
+**Crie, personalize e exporte currículos profissionais em poucos passos.**
 
-## Abrir e preencher
+O currículo.digital é uma ferramenta para criação de currículos diretamente pelo navegador. Permite preencher informações profissionais, adicionar experiências e qualificações, escolher entre diferentes modelos visuais e gerar um documento pronto para compartilhar.
 
-1. Abra `index.html` no navegador.
-2. Em **Dados pessoais**, informe nome, data de nascimento, cargo ou área, e-mail, WhatsApp com DDD, cidade e resumo profissional. A **idade** é calculada automaticamente pela data de nascimento. Data e idade são opcionais e entram na prévia, no arquivo e no PDF quando preenchidas.
-3. Use a seta de upload para escolher uma foto opcional. Depois do envio, os botões **Alterar foto** e **Remover foto** aparecem abaixo da foto. São aceitos JPG, PNG e WebP de até 2 MB.
-4. Nas outras abas, adicione experiências, formações, cursos, habilidades e idiomas. Cada grupo permite incluir e remover itens.
-5. Em **Modelo e cores**, escolha o modelo e a cor. Os mesmos dados são usados em todos os visuais.
+A aplicação funciona localmente, sem necessidade de instalação de dependências, criação de conta ou envio de dados para serviços externos.
 
-As alterações são salvas automaticamente neste navegador, inclusive foto, modelo e cor. O nome completo é obrigatório para visualizar em tamanho ampliado, baixar ou exportar. Os demais dados são opcionais. Informações não preenchidas não entram no arquivo final.
+## Funcionalidades
 
-## Modelos e cores
+- **Preenchimento de dados:** informações pessoais, perfil profissional, experiências, formação acadêmica, cursos, habilidades e idiomas.
+- **Quatro modelos visuais:** Clássico, Essencial, Horizonte e Contemporâneo.
+- **Personalização:** seis opções de cores e seletor de cor personalizada.
+- **Foto de perfil:** envio, alteração e remoção de fotografia.
+- **Pré-visualização em tempo real:** acompanhe as alterações enquanto preenche o currículo.
+- **Salvamento automático:** os dados ficam armazenados no navegador.
+- **Exportação:** gere um arquivo HTML independente ou salve o currículo em PDF.
+- **Múltiplos currículos:** mantenha diferentes currículos no mesmo navegador.
 
-- **Clássico:** retrato circular, coluna lateral colorida e nome à direita, inspirado no modelo escolhido.
-- **Essencial:** composição clara, divisórias discretas e nome em fonte serifada.
-- **Horizonte:** apresentação e competências em uma coluna lateral contínua.
-- **Contemporâneo:** cartões e formas suaves.
+## Como utilizar
 
-Há seis cores sugeridas e um seletor de cor personalizada. Mudar o visual não apaga o preenchimento.
+### 1. Iniciar
 
-## Visualizar, baixar e exportar
+Abra o arquivo `index.html` diretamente no navegador.
 
-- **Visualizar** abre uma visualização ampliada do currículo atual, ajustado para uma única folha A4. A prévia usa as mesmas medidas e a mesma tipografia da impressão.
-- **Baixar currículo** gera um único arquivo HTML com os textos, a foto, o modelo e as cores atuais, já ajustado para uma folha A4. O arquivo funciona sozinho, sem depender da pasta do projeto, e não inclui o formulário de edição.
-- **Exportar PDF** ajusta todo o conteúdo para uma única página, sem remover informações, e abre a impressão do navegador. Escolha **Salvar como PDF**, papel **A4**, orientação **retrato**, escala **100%**, margens **Padrão** e ative **Gráficos de fundo** para preservar as cores. Quanto mais conteúdo, menor será o tamanho dos textos na folha. Os modelos removem as margens automáticas da folha para evitar a data, a hora, o endereço e a paginação do navegador. Se você alterar manualmente as margens de impressão, mantenha **Cabeçalhos e rodapés** desativado.
+A página apresenta o editor de currículos, dividido em abas para facilitar o preenchimento.
 
-O PDF é gerado a partir dos dados atuais a cada exportação. Um PDF que já tenha sido salvo no computador permanece como estava; para compartilhar novas alterações, exporte novamente. Não há envio automático a um serviço externo ou impressão automática em papel.
+### 2. Preencher as informações
 
-## Mais de um currículo
+Na aba **Dados pessoais**, informe:
 
-Use **Novo currículo** para começar outro preenchimento. O currículo anterior continua salvo e pode ser aberto pelo seletor no topo da página. Isso permite usar o mesmo criador para diferentes colaboradores no mesmo navegador.
+- Nome completo;
+- Data de nascimento;
+- Cargo ou área de interesse;
+- E-mail;
+- WhatsApp;
+- Cidade;
+- Resumo profissional.
 
-Os dados ficam no armazenamento deste navegador e deste endereço de arquivo. Trocar de computador, de navegador, mover a pasta ou limpar os dados do navegador pode impedir a recuperação. Guarde os arquivos baixados. Se o armazenamento não estiver disponível ou ficar cheio, a página avisa; você ainda pode baixar e exportar os dados que estão na tela.
+A idade é calculada automaticamente a partir da data de nascimento.
 
-O projeto não cria contas nem separa usuários por senha. Pessoas que usam o mesmo perfil de navegador conseguem acessar os currículos guardados nele. Em navegadores ou computadores diferentes, cada preenchimento é independente. Para compartilhar um currículo pronto, envie apenas o HTML baixado ou o PDF.
+A fotografia é opcional e pode ser adicionada pelo botão de upload. São aceitos arquivos JPG, PNG e WebP de até 2 MB.
 
-Se houver um currículo salvo pelo editor anterior no mesmo navegador e no mesmo endereço do `index.html`, o criador tenta recuperar seus textos e sua foto automaticamente. O armazenamento anterior é preservado.
+### 3. Adicionar informações profissionais
 
-## Arquivos
+Utilize as demais abas para cadastrar:
+
+- **Experiência:** empresas, cargos, períodos e atividades desenvolvidas.
+- **Formação:** escolaridade e formação acadêmica.
+- **Competências:** habilidades técnicas e idiomas.
+
+É possível adicionar ou remover itens conforme a trajetória profissional de cada colaborador.
+
+### 4. Escolher o modelo
+
+Na aba **Modelo e cores**, selecione a apresentação visual desejada.
+
+Os dados preenchidos são compartilhados entre os modelos. Assim, você pode experimentar diferentes estilos sem precisar preencher o currículo novamente.
+
+## Modelos disponíveis
+
+Cada modelo possui uma identidade visual própria, mantendo as mesmas informações profissionais.
+
+| Modelo | Características |
+|---|---|
+| **Clássico** | Fotografia em destaque, coluna lateral colorida e apresentação tradicional. |
+| **Essencial** | Layout leve, organização editorial e divisórias discretas. |
+| **Horizonte** | Estrutura profissional com coluna lateral contínua. |
+| **Contemporâneo** | Cartões, organização em blocos e elementos visuais suaves. |
+
+Além dos modelos, estão disponíveis seis cores sugeridas e uma opção de personalização para escolher uma cor própria.
+
+## Visualização e exportação
+
+O editor disponibiliza três opções para utilizar o currículo finalizado:
+
+### Visualizar
+Abre uma versão ampliada do currículo atual, permitindo conferir a apresentação antes de gerar o documento.
+
+### Baixar currículo
+Gera um arquivo HTML independente contendo os dados, a fotografia e a identidade visual selecionada.
+
+O arquivo não depende da estrutura original do projeto e não inclui o formulário de edição.
+
+### Exportar PDF
+Prepara o currículo para impressão em uma única página A4 e abre a janela de impressão do navegador.
+
+Para preservar a aparência do documento, utilize as seguintes configurações:
+
+- Papel: A4;
+- Orientação: Retrato;
+- Escala: 100%;
+- Margens: Padrão;
+- Gráficos de fundo: Ativado;
+- Cabeçalhos e rodapés: Desativado.
+
+O conteúdo é ajustado automaticamente para caber em uma página. Quanto maior a quantidade de informações, menor poderá ser o tamanho dos textos.
+
+Cada exportação utiliza os dados preenchidos no momento. Alterações posteriores não modificam arquivos HTML ou PDFs que já tenham sido baixados.
+
+## Gerenciamento de currículos
+
+O botão **Novo currículo** permite iniciar um novo preenchimento sem perder os currículos anteriores.
+
+Os documentos ficam disponíveis no seletor localizado no topo da página, permitindo alternar entre diferentes colaboradores.
+
+O salvamento é realizado automaticamente no armazenamento local do navegador, incluindo:
+
+- Informações pessoais e profissionais;
+- Fotografia;
+- Modelo selecionado;
+- Cor personalizada.
+
+**Importante:** os dados são armazenados no navegador e no endereço utilizado para abrir o projeto. Não existe sincronização entre computadores ou navegadores.
+
+Pessoas que utilizam o mesmo perfil do navegador podem acessar os currículos armazenados nele. Por isso, evite utilizar o sistema em computadores compartilhados sem os devidos cuidados.
+
+Recomenda-se manter cópias dos currículos exportados.
+
+## Estrutura do projeto
 
 ```text
-index.html                       → formulário e interface do criador
-assets/css/criador.css            → aparência da interface
-assets/js/criador.js              → preenchimento, salvamento, prévia e exportação
-assets/js/modelos.js              → dados e geração dos quatro modelos
-assets/js/estilos-exportacao.js   → estilos completos para prévias e arquivos
-assets/css/style.css             → modelo Clássico
-propostas/base.css               → base dos outros modelos
-propostas/*/style.css            → estilos Essencial, Horizonte e Contemporâneo
-scripts/preparar-exportacao.mjs  → atualização dos estilos para exportação
+curriculo-digital/
+│
+├── index.html
+│
+├── assets/
+│   ├── css/
+│   │   ├── criador.css
+│   │   └── style.css
+│   │
+│   └── js/
+│       ├── criador.js
+│       ├── modelos.js
+│       └── estilos-exportacao.js
+│
+├── propostas/
+│   ├── base.css
+│   ├── classico/
+│   ├── essencial/
+│   ├── horizonte/
+│   └── contemporaneo/
+│
+└── scripts/
+    └── preparar-exportacao.mjs
 ```
 
-As páginas antigas em `propostas/` e o editor anterior permanecem como referências locais. O fluxo atual de criação e escolha dos quatro modelos está em `index.html`. Não é necessário editar o código para preencher um currículo.
+### Principais arquivos
 
-Ao alterar os estilos dos modelos, execute `node scripts/preparar-exportacao.mjs` para atualizar os estilos usados nas prévias e nos arquivos baixados. Para o uso normal do criador, não é necessário executar comandos.
+| Arquivo | Responsabilidade |
+|---|---|
+| `index.html` | Estrutura principal e interface do editor. |
+| `assets/css/criador.css` | Estilização da interface de preenchimento. |
+| `assets/js/criador.js` | Preenchimento, armazenamento, prévia e exportação. |
+| `assets/js/modelos.js` | Dados e geração dos modelos de currículo. |
+| `assets/js/estilos-exportacao.js` | Estilos utilizados nas prévias e nos arquivos exportados. |
+| `assets/css/style.css` | Estilos do modelo Clássico. |
+| `propostas/base.css` | Estilos compartilhados pelos demais modelos. |
+| `propostas/*/style.css` | Estilos individuais dos modelos. |
+| `scripts/preparar-exportacao.mjs` | Atualização dos estilos utilizados na exportação. |
 
-O `.env` não é lido pelo criador e não altera os campos do currículo. Ele deve continuar fora de qualquer compartilhamento ou publicação. Nunca compartilhe a pasta inteira sem revisão: os arquivos antigos podem conter preenchimentos anteriores.
+## Manutenção
+
+Quando houver alterações nos estilos dos modelos, execute:
+
+```bash
+node scripts/preparar-exportacao.mjs
+```
+
+Esse comando atualiza os estilos utilizados nas prévias e nos arquivos exportados.
+
+Para utilizar o criador normalmente, não é necessário instalar dependências ou executar comandos adicionais.
+
+As páginas antigas em `propostas/` e o editor anterior são mantidos como referências locais. O fluxo atual de criação e personalização está concentrado em `index.html`.
+
+## Armazenamento e privacidade
+
+O currículo.digital não exige cadastro, login ou conexão com um servidor para funcionar.
+
+As informações preenchidas permanecem no armazenamento local do navegador. Não há envio automático dos dados para serviços externos.
+
+Algumas situações podem impedir a recuperação dos currículos:
+
+- Limpeza dos dados de navegação;
+- Troca de navegador ou computador;
+- Mudança do local ou endereço utilizado para abrir o projeto;
+- Indisponibilidade ou falta de espaço no armazenamento local.
+
+Caso exista um currículo salvo pelo editor anterior, no mesmo navegador e endereço do `index.html`, o sistema tenta recuperar automaticamente os textos e a fotografia. O armazenamento anterior é preservado.
+
+O arquivo `.env` não é utilizado pelo criador e não interfere no preenchimento ou na exportação. Mantenha-o fora de qualquer compartilhamento ou publicação.
+
+**Recomendação:** antes de compartilhar ou publicar o projeto, revise os arquivos antigos e remova eventuais informações pessoais que possam estar armazenadas neles.
