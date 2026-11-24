@@ -1,0 +1,50 @@
+/* PROPOSTA 03 · LAVANDA
+   Blocos assimétricos, tipografia forte e detalhes em violeta.
+   O padrão geométrico do cabeçalho é desenhado somente com CSS. */
+@import url("../base.css");
+:root { --canvas: #f5f2fa; --ink: #302443; --muted: #6c5f7b; --accent: #684299; --soft: #f0e9fa; --line: #e4dbef; }
+.proposal-links [aria-current="page"] { background: #684299; }
+.resume { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 0 24px; grid-template-areas: "hero hero" "main sidebar" "footer footer"; background: transparent; }
+.identity { grid-area: hero; background: #e9def8; padding: 46px 48px; border: 1px solid #ddcdef; border-radius: 22px; margin-bottom: 26px; overflow: hidden; }
+.identity::after { content: ""; position: absolute; right: -70px; top: -110px; width: 350px; height: 350px; border: 1px solid #bba0da; border-radius: 50%; box-shadow: 0 0 0 32px #e9def8, 0 0 0 33px #c9b2e2, 0 0 0 65px #e9def8, 0 0 0 66px #d3bfe8; }
+.identity h1 { max-width: 70%; position: relative; z-index: 1; font-size: clamp(40px, 5.4vw, 67px); letter-spacing: -3px; margin-top: 16px; line-height: 1.05; }
+.identity .eyebrow, .identity .role, .identity .intro, .identity .location { position: relative; z-index: 1; }
+.eyebrow { color: #684299; font-size: 9px; }
+.role { font-size: 15px; }
+.intro { max-width: 380px; color: #604d76; font-size: 14px; }
+.monogram { position: absolute; right: 65px; top: 50%; width: 120px; height: 142px; background: #684299; color: white; border-radius: 60px 60px 12px 12px; z-index: 1; font-size: 43px; transform: translateY(-50%); }
+.draft { position: relative; z-index: 1; margin-top: 22px; color: #604d76; }
+.sidebar { grid-area: sidebar; }
+.sidebar section { padding: 25px; background: white; border: 1px solid var(--line); border-radius: 14px; }
+.sidebar section + section { margin-top: 18px; }
+.sidebar .kicker { font-size: 8px; letter-spacing: 1.4px; color: #775599; }
+.trajectory { grid-area: main; }
+.trajectory > section { padding: 30px 32px; border: 1px solid var(--line); border-radius: 14px; background: white; }
+.trajectory > section + section { margin-top: 18px; }
+.heading { gap: 12px; }
+.number { display: grid; place-items: center; width: 30px; height: 30px; background: var(--soft); border-radius: 8px 8px 8px 0; }
+.statement { border-radius: 8px; }
+.tags li { background: #f8f5fc; border-radius: 20px; }
+.resume-footer { margin-top: 26px; padding-inline: 4px; }
+@media screen and (max-width: 1000px) {
+  .resume { grid-template-columns: minmax(0, 1fr) 270px; gap: 0 18px; }
+  .identity { padding-inline: 34px; }
+  .identity h1 { max-width: 68%; }
+  .monogram { right: 42px; width: 100px; height: 123px; }
+  .trajectory > section { padding: 26px; }
+  .sidebar section { padding: 23px; }
+}
+@media screen and (max-width: 700px) {
+  .resume { grid-template-columns: minmax(0, 1fr); grid-template-areas: "hero" "main" "sidebar" "footer"; }
+  .identity { padding: 34px 26px; border-radius: 14px; margin-bottom: 18px; }
+  .identity h1 { max-width: none; font-size: 46px; letter-spacing: -2px; }
+  .identity::after { opacity: .35; right: -230px; }
+  .monogram { display: none; }
+  .trajectory > section { padding: 25px; }
+  .sidebar { margin-top: 18px; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items: start; }
+  .sidebar section + section { margin-top: 0; }
+}
+@media screen and (max-width: 480px) {
+  .sidebar { grid-template-columns: minmax(0, 1fr); }
+  .identity h1 { font-size: 40px; }
+}

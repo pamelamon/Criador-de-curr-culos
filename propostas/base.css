@@ -1,0 +1,126 @@
+/* Base comum às três propostas. Cada pasta tem seu próprio estilo visual.
+   Tudo é local: não há fontes, imagens, scripts ou bibliotecas externas. */
+:root {
+  color-scheme: light;
+  --ink: #202d3b;
+  --muted: #596674;
+  --accent: #285b83;
+  --soft: #eef3f7;
+  --line: #dbe1e6;
+  --paper: #ffffff;
+  --canvas: #f3f4f6;
+  --side-rail: #142b49;
+}
+* { box-sizing: border-box; }
+html { scroll-padding-top: 24px; background: var(--canvas); }
+body { margin: 0; min-height: 100vh; border-inline: clamp(6px, 2vw, 24px) solid var(--side-rail); background: var(--canvas); color: var(--ink); font: 14px/1.8 Arial, Helvetica, sans-serif; }
+h1, h2, h3, p { margin: 0; }
+h1, h2, h3 { line-height: 1.25; }
+h1 { overflow-wrap: anywhere; }
+h2 { font-size: 21px; letter-spacing: -.6px; }
+h3 { font-size: 15px; }
+a { color: inherit; text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: 5px; }
+a:focus-visible { outline: 3px solid var(--accent); outline-offset: 5px; }
+ul { margin: 0; padding: 0; list-style: none; }
+.skip-link { position: absolute; top: -100px; left: 20px; z-index: 3; padding: 10px; background: white; color: #202d3b; }
+.skip-link:focus { top: 10px; }
+.proposal-bar { max-width: 1120px; margin: auto; min-height: 84px; padding: 20px 0; display: flex; align-items: center; justify-content: space-between; gap: 20px; font-size: 12px; }
+.proposal-bar > a { color: var(--muted); }
+.proposal-links { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
+.proposal-links a { padding: 5px 12px; border-radius: 30px; color: var(--muted); }
+.proposal-links [aria-current="page"] { background: var(--ink); color: white; }
+.resume { max-width: 1120px; margin: 0 auto; background: var(--paper); }
+.identity { position: relative; min-width: 0; }
+.eyebrow, .kicker { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+.eyebrow { color: var(--accent); }
+.role { font-size: 16px; margin-top: 16px; }
+.intro { margin-top: 18px; color: var(--muted); max-width: 460px; }
+.location { margin-top: 18px; font-size: 12px; }
+.monogram { display: grid; place-items: center; font-size: 42px; letter-spacing: -3px; line-height: 1; }
+.draft { display: inline-block; font-size: 9px; letter-spacing: 1px; line-height: 1.6; }
+.sidebar, .trajectory { min-width: 0; }
+.sidebar section + section { margin-top: 32px; }
+.sidebar h2 { font-size: 16px; letter-spacing: -.2px; }
+.sidebar .kicker { margin-bottom: 6px; font-size: 9px; }
+.contacts { display: grid; gap: 15px; margin-top: 18px; }
+.contacts li { min-width: 0; }
+.contacts .label { display: block; color: var(--muted); font-size: 11px; }
+.contacts .value { display: block; font-size: 13px; overflow-wrap: anywhere; }
+.whatsapp-link { text-decoration: underline; text-underline-offset: 3px; }
+.skills { margin-top: 15px; }
+.skills li, .languages li { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 12px; padding: 9px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+.skills li:last-child, .languages li:last-child { border-bottom: 0; }
+.level { color: var(--muted); font-size: 11px; }
+.tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 16px; }
+.tags li { font-size: 11px; padding: 4px 10px; border: 1px solid var(--line); border-radius: 4px; }
+.languages { margin-top: 12px; }
+.trajectory > section + section { margin-top: 34px; }
+.heading { display: flex; align-items: center; gap: 13px; margin-bottom: 20px; }
+.number { flex-shrink: 0; font-size: 11px; font-weight: 700; color: var(--accent); }
+.kicker { color: var(--muted); margin-bottom: 10px; }
+.trajectory p { color: var(--muted); }
+.trajectory p + p { margin-top: 11px; }
+.trajectory strong { color: var(--ink); }
+.statement { margin-top: 22px; padding: 13px 16px; color: var(--accent); background: var(--soft); font-size: 12px; }
+.entry-title { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+.badge { color: var(--accent); background: var(--soft); padding: 3px 10px; border-radius: 4px; font-size: 10px; }
+.education p { margin-top: 8px; font-size: 13px; }
+.education .details { font-size: 12px; }
+.education + .education { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--line); }
+.example-inline { color: var(--muted); font-size: 11px; }
+.experience h3 { margin-bottom: 10px; }
+.experience .experience-meta { font-size: 12px; }
+.experience-tasks { margin-top: 14px; padding-left: 18px; list-style: disc; color: var(--muted); }
+.experience-tasks li + li { margin-top: 8px; }
+.example-note { font-size: 11px; margin-bottom: 16px; }
+.course { padding: 16px 0; }
+.course + .course { border-top: 1px solid var(--line); }
+.course p { margin-top: 7px; font-size: 12px; }
+.course .badge { display: inline-block; margin-top: 10px; }
+.resume-footer { grid-area: footer; display: flex; justify-content: space-between; gap: 20px; padding: 24px 42px; font-size: 11px; color: var(--muted); border-top: 1px solid var(--line); }
+.review-note { max-width: 1000px; margin: 20px auto 32px; padding-inline: 20px; text-align: center; color: var(--muted); font-size: 11px; }
+@media (max-width: 1180px) {
+  .proposal-bar, .resume { margin-inline: 24px; }
+}
+@media (max-width: 700px) {
+  body { font-size: 14px; }
+  .proposal-bar { min-height: 100px; margin-inline: 16px; flex-wrap: wrap; gap: 12px; padding-block: 16px; }
+  .proposal-links a { padding: 4px 10px; font-size: 11px; }
+  .resume { margin-inline: 16px; }
+  .resume-footer { padding: 22px; flex-direction: column; gap: 5px; }
+  .heading h2 { font-size: 20px; }
+  .review-note { font-size: 10px; }
+}
+/* Impressão compartilhada. O currículo pode ocupar mais de uma página. */
+@page { size: A4; margin: 12mm; }
+@media print {
+  html { background: white; }
+  body { width: 100%; margin: 0; min-height: 0; border-inline: 0; background: white; color: #202d3b; font-size: 10pt; }
+  .proposal-bar, .skip-link, .review-note, .monogram { display: none !important; }
+  .resume { display: block !important; width: 100%; max-width: none; margin: 0; padding: 0; border: 0 !important; box-shadow: none !important; border-radius: 0 !important; }
+  .identity { padding: 0 0 5mm !important; margin: 0 0 5mm; border: 0 !important; border-bottom: 2px solid #202d3b !important; border-radius: 0 !important; background: white !important; color: #202d3b !important; }
+  .identity::before, .identity::after { display: none !important; }
+  .identity h1 { font-size: 28pt !important; color: #202d3b !important; max-width: none !important; }
+  .identity .eyebrow, .identity .role, .identity .intro, .identity .location, .identity .draft { color: #394b5e !important; }
+  .identity .intro, .identity .location, .identity .role { margin-top: 2mm; }
+  .draft { position: static !important; margin-top: 3mm; }
+  .sidebar { display: grid !important; grid-template-columns: 1fr 1fr; gap: 4mm; padding: 0 !important; background: white !important; color: #202d3b !important; border: 0 !important; }
+  .sidebar section, .trajectory > section { break-inside: avoid; page-break-inside: avoid; padding: 4mm !important; border: 1px solid #d2d7df !important; border-radius: 1mm !important; background: white !important; margin: 0 0 4mm !important; }
+  .sidebar section + section { margin-top: 0; }
+  .sidebar .kicker, .sidebar .contacts .label, .sidebar .level { color: #4b5563 !important; }
+  .sidebar .tags li { border-color: #b8c0ca !important; background: white !important; }
+  .trajectory { padding: 0 !important; margin-top: 4mm; }
+  .heading { margin-bottom: 3mm; }
+  .heading h2, .sidebar h2 { font-size: 12pt; }
+  h2, h3 { break-after: avoid; }
+  .trajectory p { font-size: 9pt; line-height: 1.6; }
+  .experience-tasks { font-size: 9pt; line-height: 1.6; }
+  .contacts { gap: 2mm; margin-top: 3mm; }
+  .skills li, .languages li { padding-block: 1mm; }
+  .tags { margin-top: 3mm; }
+  .statement { margin-top: 3mm; padding: 2mm 3mm; background: white; border-left: 2px solid #8191a2; }
+  .badge { border: 1px solid #d2d7df; background: white; color: #34445a; }
+  .course { padding-block: 2mm; }
+  .resume-footer { padding: 3mm 0 !important; font-size: 8pt; break-inside: avoid; }
+}

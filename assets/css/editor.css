@@ -1,0 +1,39 @@
+.resume-editor[hidden], .resume-editor [hidden] { display: none !important; }
+.resume-editor { width: min(1120px, calc(100% - 32px)); margin: 18px auto 0; padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; gap: 20px; border: 1px solid #cbd8e8; border-radius: 12px; background: #ffffff; color: #142b49; font: 13px/1.6 Arial, Helvetica, sans-serif; box-shadow: 0 4px 20px rgb(20 43 73 / 8%); z-index: 10; }
+.resume-editor.is-editing { position: sticky; top: 8px; }
+.resume-editor-copy { max-width: 440px; }
+.resume-editor strong { color: #142b49; font-size: 14px; }
+.resume-editor p { margin: 3px 0 0; font-size: 12px; color: #526176; }
+.resume-editor .resume-editor-status { color: #245fac; }
+.resume-editor-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.resume-editor button { padding: 9px 13px; border: 1px solid #cbd8e8; border-radius: 7px; background: #ffffff; color: #142b49; font: 600 12px/1.4 Arial, Helvetica, sans-serif; cursor: pointer; }
+.resume-editor button:hover { background: #edf3fa; }
+.resume-editor button.resume-editor-primary { border-color: #142b49; background: #142b49; color: #ffffff; }
+.resume-editor button.resume-editor-primary:hover { background: #24496f; }
+.resume-editor button:focus-visible { outline: 3px solid #367ccf; outline-offset: 3px; }
+.resume-editor button:disabled { opacity: .6; cursor: wait; }
+[data-photo-controls][hidden], [data-photo-controls] [hidden] { display: none !important; }
+.photo-upload { position: absolute; right: 0; bottom: 0; width: 44px; height: 44px; display: grid; place-items: center; padding: 0; border: 3px solid white; border-radius: 50%; background: #245fac; color: white; cursor: pointer; box-shadow: 0 3px 10px rgb(0 0 0 / 20%); }
+.photo-upload:hover { background: #3675c5; }
+.photo-upload svg { width: 23px; height: 23px; }
+.photo-actions { position: absolute; top: calc(100% + 10px); left: 0; right: 0; display: flex; justify-content: center; gap: 6px; }
+.photo-actions button { min-width: 0; flex: 1; padding: 7px 5px; border: 1px solid #9db4d1; border-radius: 5px; background: #142b49; color: white; font: 600 11px/1.3 Arial, Helvetica, sans-serif; white-space: nowrap; cursor: pointer; }
+.photo-actions button:hover { background: #245fac; }
+.photo-upload:focus-visible, .photo-actions button:focus-visible { outline: 3px solid #a8caff; outline-offset: 3px; }
+[data-resume-field][contenteditable] { outline: 1px dashed #7099cc; outline-offset: 4px; border-radius: 2px; cursor: text; scroll-margin-top: 180px; }
+[data-resume-field][contenteditable]:focus { outline: 2px solid #367ccf; }
+@media (max-width: 700px) {
+  .resume-editor { padding: 12px 14px; display: block; }
+  .resume-editor-copy { max-width: none; }
+  .resume-editor-actions { margin-top: 10px; }
+  .resume-editor button { padding: 9px 11px; }
+  [data-resume-field][contenteditable] { scroll-margin-top: 240px; }
+}
+@media print {
+  [data-editor-ui] { display: none !important; }
+  [data-resume-field][contenteditable] { outline: none !important; }
+}
+@media screen and (max-width: 600px) {
+  .hero-identity.has-photo-actions { padding-bottom: 64px; }
+  .photo-actions button { font-size: 10px; }
+}

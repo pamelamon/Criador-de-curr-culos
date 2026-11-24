@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AVANCE · Vídeo de introdução</title>
+<style>
+  :root { --navy:#142b49; --blue:#245fac; --muted:#65758a; --canvas:#f3f6fb; }
+  body { margin:0; background:#0d1b2e; color:#fff; font:15px/1.5 Arial, Helvetica, sans-serif; display:flex; flex-direction:column; align-items:center; gap:14px; padding:20px 16px; min-height:100vh; box-sizing:border-box; }
+  canvas { width:min(100%, 1280px); aspect-ratio:16/9; border-radius:10px; box-shadow:0 10px 40px rgb(0 0 0 / 40%); background:#f3f6fb; }
+  .bar { display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:center; }
+  button { font:inherit; font-weight:700; padding:10px 18px; border-radius:8px; border:1px solid #3c5a82; background:#1d3a60; color:#fff; cursor:pointer; }
+  button.primary { background:#245fac; border-color:#245fac; }
+  button:disabled { opacity:.5; cursor:wait; }
+  #status { color:#a9bbd3; font-size:14px; min-height:22px; text-align:center; }
+</style>
+</head>
+<body>
+<canvas id="c" width="1920" height="1080"></canvas>
+<div class="bar">
+  <button id="play" class="primary">▶ Assistir</button>
+  <button id="rec">⬇ Gravar e baixar vídeo (WebM)</button>
+  <label><input type="checkbox" id="subs" checked> Legendas</label>
+</div>
+<div id="status">Duração: 55 segundos · música gerada no navegador · sem narração</div>
+
+<script>
+const W = 1920, H = 1080, DUR = 55;
+const cv = document.getElementById('c'), ctx = cv.getContext('2d');
+const C = { navy:'#142b49', ink:'#20324a', blue:'#245fac', muted:'#65758a', line:'#dee5ef', canvas:'#f3f6fb', light:'#e6eef9' };
+const SWATCH = ['#142b49','#245fac','#2f7d6d','#8a4fb0','#b4572e','#a02e35'];
+
+// ---------- helpers ----------
+const clamp = (v,a=0,b=1)=>Math.max(a,Math.min(b,v));
+const ease = t => { t = clamp(t); return t<.5 ? 4*t*t*t : 1-Math.pow(-2*t+2,3)/2; };
+const easeOut = t => 1-Math.pow(1-clamp(t),3);
+const prog = (t,a,b)=>clamp((t-a)/(b-a));
+// opacity for a scene: fade in over 0.8s, fade out over 0.8s
+const sceneAlpha = (t,a,b,f=.8)=>Math.min(easeOut((t-a)/f), easeOut((b-t)/f));
+function rr(x,y,w,h,r){ ctx.beginPath(); ctx.roundRect(x,y,w,h,r); }
+function text(s,x,y,{size=48,weight=700,color=C.navy,align='center',font='Arial, Helvetica, sans-serif',alpha=1}={}){
+  ctx.save(); ctx.globalAlpha*=alpha; ctx.font=`${weight} ${size}px ${font}`; ctx.fillStyle=color; ctx.textAlign=align; ctx.textBaseline='middle'; ctx.fillText(s,x,y); ctx.restore();
+}
+function card(x,y,w,h,r=24,fill='#fff'){ ctx.save(); ctx.shadowColor='rgba(20,43,73,.12)'; ctx.shadowBlur=40; ctx.shadowOffsetY=12; rr(x,y,w,h,r); ctx.fillStyle=fill; ctx.fill(); ctx.restore(); }
+function logo(cx,cy,s,a=1){
+  ctx.save(); ctx.globalAlpha*=a; ctx.translate(cx,cy); ctx.scale(s,s);
+  rr(-60,-60,120,120,26); ctx.fillStyle=C.navy; ctx.fill();
+  ctx.strokeStyle='#fff'; ctx.lineWidth=12; ctx.lineCap='round'; ctx.lineJoin='round';
+  ctx.beginPath(); ctx.moveTo(-30,32); ctx.lineTo(0,-32); ctx.lineTo(30,32); ctx.stroke();
+  ctx.strokeStyle='#7fb0f0'; ctx.beginPath(); ctx.moveTo(-14,10); ctx.lineTo(14,10); ctx.stroke();
+  ctx.restore();
+}
+function bg(t){
+  ctx.fillStyle=C.canvas; ctx.fillRect(0,0,W,H);
+  // soft drifting shapes
+  ctx.save(); ctx.globalAlpha=.55;
+  for(let i=0;i<4;i++){ const x=300+i*460+Math.sin(t*.15+i)*60, y=200+((i%2)*620)+Math.cos(t*.12+i)*40;
+    const g=ctx.createRadialGradient(x,y,0,x,y,420); g.addColorStop(0, i%2?'rgba(36,95,172,.10)':'rgba(127,176,240,.16)'); g.addColorStop(1,'rgba(243,246,251,0)');
+    ctx.fillStyle=g; ctx.fillRect(x-420,y-420,840,840); }
+  ctx.restore();
+}
+function lines(x,y,w,n,gap,color=C.line,p=1,hgt=14){
+  for(let i=0;i<n;i++){ const ww=(i%3==2?w*.6:w)*clamp(p*n-i); if(ww<=0) continue; rr(x,y+i*gap,ww,hgt,7); ctx.fillStyle=color; ctx.fill(); }
+}
+// mini résumé thumbnail in 4 styles
+function resume(x,y,w,h,style,color,a=1){
+  ctx.save(); ctx.globalAlpha*=a; card(x,y,w,h,10);
+  ctx.save(); rr(x,y,w,h,10); ctx.clip();
+  const p=w/300;
+  if(style===0){ // Clássico: lateral colorida
+    ctx.fillStyle=color; ctx.fillRect(x,y,w*.34,h);
+    ctx.fillStyle='rgba(255,255,255,.9)'; ctx.beginPath(); ctx.arc(x+w*.17,y+60*p,30*p,0,7); ctx.fill();
+    lines(x+14*p,y+110*p,w*.34-28*p,6,22*p,'rgba(255,255,255,.5)',1,8*p);
+    rr(x+w*.4,y+30*p,w*.5,20*p,6); ctx.fillStyle=C.navy; ctx.fill();
+    lines(x+w*.4,y+70*p,w*.52,9,24*p,C.line,1,9*p);
+  } else if(style===1){ // Essencial
+    rr(x+w*.2,y+30*p,w*.6,22*p,6); ctx.fillStyle=C.navy; ctx.fill();
+    ctx.fillStyle=color; ctx.fillRect(x+30*p,y+72*p,w-60*p,3*p);
+    lines(x+30*p,y+92*p,w-60*p,4,22*p,C.line,1,9*p);
+    ctx.fillStyle=color; ctx.fillRect(x+30*p,y+190*p,w-60*p,3*p);
+    lines(x+30*p,y+210*p,w-60*p,5,22*p,C.line,1,9*p);
+  } else if(style===2){ // Horizonte
+    ctx.fillStyle=color; ctx.fillRect(x,y,w,70*p);
+    rr(x+24*p,y+24*p,w*.5,22*p,6); ctx.fillStyle='#fff'; ctx.fill();
+    ctx.fillStyle=C.light; ctx.fillRect(x+w*.66,y+70*p,w*.34,h);
+    lines(x+24*p,y+96*p,w*.56,10,24*p,C.line,1,9*p);
+    lines(x+w*.7,y+96*p,w*.24,7,24*p,'#c9d7ea',1,9*p);
+  } else { // Contemporâneo
+    ctx.fillStyle=color+'22'; ctx.beginPath(); ctx.arc(x+w,y,140*p,0,7); ctx.fill();
+    rr(x+24*p,y+30*p,w*.55,22*p,6); ctx.fillStyle=C.navy; ctx.fill();
+    for(let i=0;i<3;i++){ rr(x+24*p,y+(80+i*82)*p,w-48*p,68*p,12*p); ctx.fillStyle=i==0?color+'26':'#f3f6fb'; ctx.fill(); lines(x+38*p,y+(96+i*82)*p,w-90*p,2,20*p,C.line,1,9*p); }
+  }
+  ctx.restore(); ctx.restore();
+}
+
+// ---------- scenes ----------
+const SCENES = [
+  { a:0,  b:7,  draw:sIntro },
+  { a:7,  b:14, draw:sProblem },
+  { a:14, b:23, draw:sFill },
+  { a:23, b:32, draw:sModels },
+  { a:32, b:41, draw:sExport },
+  { a:41, b:48, draw:sBenefits },
+  { a:48, b:55, draw:sOutro },
+];
+const SUBS = [
+  [0.8, 6.4,  'Apresentamos o AVANCE.'],
+  [7.4, 13.4, 'Criar um currículo bem apresentado não precisa ser complicado.'],
+  [14.4,22.4, 'Passo 1 — Preencha experiências, formações, cursos e idiomas.'],
+  [23.4,31.4, 'Passo 2 — Escolha entre quatro modelos e a cor que combina com você.'],
+  [32.4,40.4, 'Passo 3 — Visualize, baixe o arquivo ou exporte em PDF, em uma folha A4.'],
+  [41.4,47.4, 'Direto no navegador: sem instalar nada, sem criar conta e com salvamento automático.'],
+  [48.4,54.4, 'AVANCE. Seu currículo pronto para o próximo passo.'],
+];
+
+function sIntro(t,a){
+  const p=easeOut(prog(t,.3,1.8));
+  logo(W/2, H/2-90, .6+.6*p, a*p);
+  text('AVANCE', W/2, H/2+80, {size:130, weight:800, alpha:a*easeOut(prog(t,1.4,2.6)), color:C.navy});
+  ctx.save(); ctx.globalAlpha=a; const lw=360*ease(prog(t,2.2,3.4)); ctx.fillStyle=C.blue; rr(W/2-lw/2,H/2+160,lw,6,3); ctx.fill(); ctx.restore();
+  text('Criador de currículos', W/2, H/2+220, {size:44, weight:400, color:C.muted, alpha:a*easeOut(prog(t,3,4.2))});
+}
+function sProblem(t,a){
+  const l=t-7;
+  text('Seu currículo é a primeira impressão.', W/2, 330, {size:72, alpha:a*easeOut(prog(l,.2,1.4))});
+  text('Ele deve ser simples de montar —', W/2, 450, {size:52, weight:400, color:C.muted, alpha:a*easeOut(prog(l,1.4,2.6))});
+  text('e bonito de entregar.', W/2, 520, {size:52, weight:700, color:C.blue, alpha:a*easeOut(prog(l,2.4,3.6))});
+  // three blank pages turning into one tidy page
+  const q=ease(prog(l,3.2,5));
+  for(let i=0;i<3;i++){ const off=(i-1)*220*(1-q); ctx.save(); ctx.translate(W/2+off, 790); ctx.rotate((i-1)*.12*(1-q));
+    ctx.globalAlpha=a*easeOut(prog(l,2.8,3.6)); card(-110,-140,220,280,12); lines(-80,-100,160,7,34,C.line,i==1?q:0.3); ctx.restore(); }
+}
+function stepBadge(n,label,a){
+  ctx.save(); ctx.globalAlpha=a; rr(140,110,90,90,22); ctx.fillStyle=C.navy; ctx.fill(); ctx.restore();
+  text(String(n),185,157,{size:52,color:'#fff',alpha:a});
+  text('PASSO '+n,260,135,{size:24,align:'left',color:C.blue,alpha:a});
+  text(label,260,178,{size:52,align:'left',alpha:a});
+}
+function sFill(t,a){
+  const l=t-14; stepBadge(1,'Preencha seus dados',a*easeOut(prog(l,.1,1)));
+  const fa=a*easeOut(prog(l,.6,1.6));
+  ctx.save(); ctx.globalAlpha=fa; const y0=260+30*(1-easeOut(prog(l,.6,1.6)));
+  card(140,y0,820,660,22);
+  const tabs=['Dados','Experiência','Formação','Cursos','Habilidades','Idiomas'];
+  const active=Math.min(5,Math.floor(clamp((l-1.5)/1.1,0,5.99)));
+  let tx=170; ctx.font='700 24px Arial';
+  tabs.forEach((s,i)=>{ const w=ctx.measureText(s).width+32; if(i===active){ rr(tx,y0+28,w,48,10); ctx.fillStyle=C.light; ctx.fill(); }
+    text(s,tx+w/2,y0+53,{size:24,color:i===active?C.blue:C.muted}); tx+=w+6; });
+  ctx.fillStyle=C.line; ctx.fillRect(140,y0+100,820,2);
+  const fields=['Nome completo','Cargo ou área','E-mail','Cidade','Resumo profissional'];
+  fields.forEach((f,i)=>{ const fy=y0+140+i*100; text(f,180,fy,{size:22,align:'left',color:C.muted});
+    rr(180,fy+20,740,i==4?70:52,10); ctx.strokeStyle=C.line; ctx.lineWidth=2; ctx.stroke();
+    const fp=ease(prog(l,1.4+i*.9,2.3+i*.9)); rr(200,fy+40,(i==4?660:[420,300,380,240][i])*fp,14,7); ctx.fillStyle='#b7c8de'; ctx.fill(); });
+  ctx.restore();
+  // live preview
+  const pa=a*easeOut(prog(l,1.2,2.2)); text('Prévia ao vivo',1390,290,{size:26,color:C.blue,alpha:pa});
+  resume(1180,330,420,580,0,C.navy,pa);
+  ctx.save(); ctx.globalAlpha=pa*.9; ctx.strokeStyle=C.blue; ctx.setLineDash([10,10]); ctx.lineWidth=3; ctx.beginPath(); ctx.moveTo(980,600); ctx.lineTo(1160,600); ctx.stroke(); ctx.restore();
+}
+function sModels(t,a){
+  const l=t-23; stepBadge(2,'Escolha o modelo e a cor',a*easeOut(prog(l,.1,1)));
+  const names=['Clássico','Essencial','Horizonte','Contemporâneo'];
+  const ci=Math.floor(clamp((l-4.2)/.7,0,5.99)); const color=l<4.2?SWATCH[0]:SWATCH[ci];
+  const sel=Math.min(3,Math.floor(clamp((l-1.6)/.7,0,3.99)));
+  names.forEach((n,i)=>{ const p=easeOut(prog(l,.6+i*.25,1.6+i*.25)); const x=180+i*400, y=250+40*(1-p);
+    resume(x,y,320,400,i,i===sel?color:'#9db1cc',a*p);
+    if(i===sel){ ctx.save(); ctx.globalAlpha=a*p; rr(x-10,y-10,340,420,16); ctx.strokeStyle=C.blue; ctx.lineWidth=5; ctx.stroke(); ctx.restore(); }
+    text(n,x+160,y+450,{size:30,color:i===sel?C.blue:C.ink,alpha:a*p}); });
+  const sa=a*easeOut(prog(l,3.6,4.4));
+  text('6 cores sugeridas + cor personalizada',W/2,780,{size:28,weight:400,color:C.muted,alpha:sa});
+  SWATCH.forEach((c,i)=>{ ctx.save(); ctx.globalAlpha=sa; ctx.beginPath(); ctx.arc(W/2-200+i*80,850,24,0,7); ctx.fillStyle=c; ctx.fill();
+    if(l>=4.2&&i===ci){ ctx.lineWidth=5; ctx.strokeStyle='#fff'; ctx.stroke(); ctx.beginPath(); ctx.arc(W/2-200+i*80,850,32,0,7); ctx.strokeStyle=c; ctx.lineWidth=3; ctx.stroke(); } ctx.restore(); });
+}
+function sExport(t,a){
+  const l=t-32; stepBadge(3,'Visualize, baixe ou exporte',a*easeOut(prog(l,.1,1)));
+  const p=easeOut(prog(l,.6,1.8)); resume(300,270+40*(1-p),460,640,2,C.blue,a*p);
+  
+  const btns=[['Visualizar','Prévia ampliada em tamanho real'],['Baixar currículo','Arquivo HTML que funciona sozinho'],['Exportar PDF','Tudo ajustado em uma única página']];
+  btns.forEach(([b,d],i)=>{ const bp=easeOut(prog(l,1.6+i*1.4,2.4+i*1.4)); const x=900+60*(1-bp), y=330+i*200;
+    ctx.save(); ctx.globalAlpha=a*bp; card(x,y,780,150,18);
+    const hot=l>2.4+i*1.4&&l<3.6+i*1.4; rr(x+30,y+35,80,80,16); ctx.fillStyle=hot?C.blue:C.navy; ctx.fill();
+    ctx.strokeStyle='#fff'; ctx.lineWidth=6; ctx.lineCap='round'; ctx.beginPath();
+    if(i==0){ ctx.arc(x+70,y+75,16,0,7); ctx.moveTo(x+82,y+87); ctx.lineTo(x+94,y+99);} else { ctx.moveTo(x+70,y+55); ctx.lineTo(x+70,y+90); ctx.moveTo(x+56,y+78); ctx.lineTo(x+70,y+92); ctx.lineTo(x+84,y+78); ctx.moveTo(x+52,y+100); ctx.lineTo(x+88,y+100);} ctx.stroke(); ctx.restore();
+    text(b,x+140,y+58,{size:36,align:'left',alpha:a*bp}); text(d,x+140,y+102,{size:26,weight:400,align:'left',color:C.muted,alpha:a*bp}); });
+}
+function sBenefits(t,a){
+  const l=t-41; text('Feito para ser fácil',W/2,200,{size:64,alpha:a*easeOut(prog(l,.1,1))});
+  const items=[['Sem instalar','Abre direto no navegador'],['Sem criar conta','Nada de cadastro ou senha'],['Salva sozinho','Continue de onde parou'],['Vários currículos','Um para cada colaborador']];
+  items.forEach(([h,d],i)=>{ const p=easeOut(prog(l,.8+i*.6,1.8+i*.6)); const x=150+i*415, y=340+40*(1-p);
+    ctx.save(); ctx.globalAlpha=a*p; card(x,y,375,420,22);
+    ctx.beginPath(); ctx.arc(x+187,y+120,56,0,7); ctx.fillStyle=C.light; ctx.fill();
+    ctx.strokeStyle=C.blue; ctx.lineWidth=9; ctx.lineCap='round'; ctx.lineJoin='round'; const k=ease(prog(l,1.4+i*.6,2.2+i*.6));
+    ctx.beginPath(); ctx.moveTo(x+160,y+122); ctx.lineTo(x+160+16*Math.min(1,k*2),y+122+16*Math.min(1,k*2)); if(k>.5) ctx.lineTo(x+176+34*(k-.5)*2,y+138-38*(k-.5)*2); ctx.stroke(); ctx.restore();
+    text(h,x+187,y+250,{size:36,alpha:a*p}); text(d,x+187,y+310,{size:25,weight:400,color:C.muted,alpha:a*p}); });
+}
+function sOutro(t,a){
+  const l=t-48; const p=easeOut(prog(l,.2,1.6));
+  logo(W/2,H/2-150,1.1*p+.2,a*p);
+  text('AVANCE',W/2,H/2+20,{size:120,weight:800,alpha:a*easeOut(prog(l,.9,2))});
+  text('Seu currículo pronto para o próximo passo.',W/2,H/2+130,{size:44,weight:400,color:C.muted,alpha:a*easeOut(prog(l,1.8,3))});
+  // forward chevrons
+  for(let i=0;i<3;i++){ const ca=a*easeOut(prog(l,2.8+i*.3,3.4+i*.3)); ctx.save(); ctx.globalAlpha=ca*(.4+.3*i); ctx.strokeStyle=C.blue; ctx.lineWidth=10; ctx.lineCap='round'; ctx.lineJoin='round';
+    const x=W/2-60+i*50; ctx.beginPath(); ctx.moveTo(x,H/2+215); ctx.lineTo(x+24,H/2+240); ctx.lineTo(x,H/2+265); ctx.stroke(); ctx.restore(); }
+}
+
+function drawSubs(t){
+  if(!document.getElementById('subs').checked) return;
+  const s=SUBS.find(([a,b])=>t>=a&&t<=b); if(!s) return;
+  const al=Math.min(easeOut((t-s[0])/.4),easeOut((s[1]-t)/.4));
+  ctx.save(); ctx.globalAlpha=al; ctx.font='600 40px Arial, Helvetica, sans-serif';
+  const w=Math.min(ctx.measureText(s[2]).width+70,W-120); rr(W/2-w/2,H-128,w,72,14); ctx.fillStyle='rgba(13,27,46,.82)'; ctx.fill();
+  ctx.fillStyle='#fff'; ctx.textAlign='center'; ctx.textBaseline='middle'; ctx.fillText(s[2],W/2,H-91,W-160); ctx.restore();
+}
+function render(t){
+  bg(t);
+  for(const s of SCENES){ if(t>=s.a-.01&&t<=s.b+.01){ ctx.save(); s.draw(t,sceneAlpha(t,s.a,s.b)); ctx.restore(); } }
+  drawSubs(t);
+  // fade from/to dark
+  const f=Math.max(1-t/0.8, (t-(DUR-1.2))/1.2); if(f>0){ ctx.fillStyle=`rgba(13,27,46,${clamp(f)})`; ctx.fillRect(0,0,W,H); }
+}
+
+// ---------- music (calm, ~76 BPM, synthesized) ----------
+function buildMusic(ac, out){
+  const master=ac.createGain(); master.gain.value=0; master.connect(out);
+  const t0=ac.currentTime+.05;
+  master.gain.setValueAtTime(0,t0); master.gain.linearRampToValueAtTime(.55,t0+3);
+  master.gain.setValueAtTime(.55,t0+DUR-4); master.gain.linearRampToValueAtTime(0,t0+DUR);
+  // simple reverb via feedback delay
+  const delay=ac.createDelay(); delay.delayTime.value=.39; const fb=ac.createGain(); fb.gain.value=.32; const wet=ac.createGain(); wet.gain.value=.35;
+  delay.connect(fb); fb.connect(delay); delay.connect(wet); wet.connect(master);
+  const lp=ac.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value=2400; lp.connect(master); lp.connect(delay);
+  const mtof=m=>440*Math.pow(2,(m-69)/12);
+  // C – Am – F – G (I vi IV V), warm and positive
+  const chords=[[48,55,60,64,67],[45,52,57,60,64],[41,48,57,60,65],[43,50,55,59,62]];
+  const beat=60/76, bar=beat*4;
+  function note(m,start,len,type,vol,attack=.6){
+    const o=ac.createOscillator(), g=ac.createGain(); o.type=type; o.frequency.value=mtof(m);
+    g.gain.setValueAtTime(0,start); g.gain.linearRampToValueAtTime(vol,start+attack); g.gain.setTargetAtTime(0,start+len-attack*.5,attack*.6);
+    o.connect(g); g.connect(lp); o.start(start); o.stop(start+len+2);
+  }
+  const bars=Math.ceil(DUR/bar);
+  for(let b=0;b<bars;b++){
+    const ch=chords[b%4], s=t0+b*bar;
+    ch.forEach((m,i)=>{ note(m,s,bar+.3,'triangle',i==0?.05:.025,1.2); note(m+12,s,bar+.3,'sine',.012,1.5); });
+    note(ch[0]-12,s,bar,'sine',.09,.3); // bass
+    if(b>=2 && b<bars-1){ // gentle arpeggio after intro
+      const arp=[ch[2],ch[3],ch[4],ch[3]+12, ch[4],ch[3],ch[2]+12,ch[3]];
+      arp.forEach((m,i)=>note(m+12,s+i*beat/2,beat*.9,'sine',.035,.02));
+    }
+  }
+  // final soft chord
+  [60,64,67,72].forEach(m=>note(m,t0+DUR-5,5,'triangle',.03,1));
+  return t0;
+}
+
+// ---------- playback / recording ----------
+let raf=null, running=false;
+function play(record){
+  if(running) return; running=true;
+  const btnP=document.getElementById('play'), btnR=document.getElementById('rec'), st=document.getElementById('status');
+  btnP.disabled=btnR.disabled=true;
+  const ac=new (window.AudioContext||window.webkitAudioContext)();
+  const dest=ac.createMediaStreamDestination(); const speakers=ac.createGain(); speakers.connect(ac.destination);
+  const bus=ac.createGain(); bus.connect(speakers); bus.connect(dest);
+  const t0=buildMusic(ac,bus);
+  let rec=null, chunks=[];
+  if(record){
+    const stream=new MediaStream([...cv.captureStream(30).getVideoTracks(), ...dest.stream.getAudioTracks()]);
+    const types=['video/webm;codecs=vp9,opus','video/webm;codecs=vp8,opus','video/webm'];
+    rec=new MediaRecorder(stream,{mimeType:types.find(m=>MediaRecorder.isTypeSupported(m)), videoBitsPerSecond:8e6});
+    rec.ondataavailable=e=>e.data.size&&chunks.push(e.data);
+    rec.onstop=()=>{ const url=URL.createObjectURL(new Blob(chunks,{type:'video/webm'})); const a=document.createElement('a'); a.href=url; a.download='avance-introducao.webm'; a.click(); st.textContent='Vídeo salvo como avance-introducao.webm'; };
+    rec.start(250); st.textContent='Gravando… mantenha esta aba aberta e visível até o fim (55 s).';
+  } else st.textContent='Reproduzindo…';
+  const tick=()=>{ const t=ac.currentTime-t0; render(clamp(t,0,DUR));
+    if(t<DUR+.3) raf=requestAnimationFrame(tick);
+    else { running=false; btnP.disabled=btnR.disabled=false; if(rec) rec.stop(); else st.textContent='Fim. Clique em Assistir para rever.'; setTimeout(()=>ac.close(),500); } };
+  tick();
+}
+document.getElementById('play').onclick=()=>play(false);
+document.getElementById('rec').onclick=()=>play(true);
+render(3.5);
+</script>
+</body>
+</html>

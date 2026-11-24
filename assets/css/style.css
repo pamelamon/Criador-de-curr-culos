@@ -1,0 +1,160 @@
+/* Currículo editorial inspirado na referência, com o azul original. */
+:root { color-scheme: light; --page: #c7c7c7; --paper: #fff; --navy: #142b49; --blue: #245fac; --text: #333; --muted: #777; --line: #d6d6d6; --sidebar: var(--navy); }
+* { box-sizing: border-box; }
+html { background: var(--page); scroll-padding-top: 24px; }
+body { margin: 0; padding: 42px 24px 64px; background: var(--page); color: var(--text); font: 13px/1.65 Arial, Helvetica, sans-serif; }
+h1, h2, h3, p { margin: 0; }
+h1, h2, h3 { line-height: 1.2; }
+a { color: inherit; text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: 4px; }
+a:focus-visible { outline: 2px solid #9bbbe0; outline-offset: 5px; }
+ul { padding: 0; margin: 0; list-style: none; }
+[hidden] { display: none !important; }
+.skip-link { position: absolute; top: -100px; left: 20px; z-index: 20; padding: 10px 16px; color: #222; background: white; }
+.skip-link:focus { top: 10px; }
+.topbar { display: none; }
+body > .resume-editor { width: min(920px, 100%); margin: 0 auto 20px; }
+
+/* Folha em duas colunas, com retrato à esquerda e nome à direita. */
+.page-width:not(.topbar) { width: min(920px, 100%); min-height: 1280px; margin: 0 auto; display: grid; grid-template-columns: 33% minmax(0, 1fr); grid-template-rows: 250px 1fr auto; grid-template-areas: "portrait header" "sidebar main" "disclaimer disclaimer"; align-items: stretch; background: var(--paper); box-shadow: 0 10px 22px rgb(0 0 0 / 22%); }
+.hero, .content-layout { display: contents; }
+.hero-content { grid-area: header; min-width: 0; padding: 54px 44px 30px; text-align: right; }
+.hero-eyebrow { color: #8b8b8b; font-size: 9px; letter-spacing: 1.5px; font-weight: 700; }
+.status-dot { display: none; }
+h1 { max-width: 440px; margin: 14px 0 0 auto; color: var(--navy); font-size: clamp(38px, 4.4vw, 49px); font-weight: 700; letter-spacing: -1.8px; line-height: 1.06; overflow-wrap: anywhere; }
+.name-period { display: none; }
+.hero-role { margin-top: 15px; color: #929292; font-size: 17px; line-height: 1.4; font-weight: 600; }
+.hero-role > span { padding-inline: 4px; }
+.hero-intro { margin-top: 12px; color: #777; font-size: 12px; line-height: 1.6; }
+.hero-eyebrow, .hero-intro, .hero-bottom, .example-label { display: none; }
+
+/* O retrato é escolhido pela própria pessoa no editor local. */
+.hero-identity { grid-area: portrait; display: grid; place-items: center; padding: 32px 24px 22px; background: var(--sidebar); }
+.photo-editor { position: relative; width: 190px; max-width: 100%; }
+.photo-editor .portrait { width: 100%; }
+.portrait { width: 190px; max-width: 100%; aspect-ratio: 1; position: relative; overflow: hidden; border: 3px solid #fff; border-radius: 50%; background: #edf3fa; }
+.resume-photo { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.initials { width: 100%; height: 100%; display: grid; place-items: center; color: var(--navy); font-size: 57px; letter-spacing: -3px; font-weight: 400; }
+.initials > span { display: none; }
+
+/* Coluna lateral contínua: contatos, apresentação e competências. */
+.sidebar { grid-area: sidebar; min-width: 0; padding: 22px 34px 40px; background: var(--sidebar); color: white; }
+.sidebar .card { padding: 0; border: 0; background: transparent; box-shadow: none; }
+.sidebar .card + .card { margin-top: 26px; }
+.sidebar h2 { padding-bottom: 9px; border-bottom: 2px solid #9db4d1; color: #fff; font-size: 18px; letter-spacing: -.5px; }
+.sidebar p { color: #d0dceb; font-size: 12px; line-height: 1.75; }
+.sidebar strong { color: #fff; font-weight: 600; }
+.section-label, .section-subtitle { display: none; }
+.contact-list { display: grid; gap: 17px; margin-top: 22px; }
+.contact-icon { display: none; }
+.field-label { display: block; margin-bottom: 3px; color: #b8cce3; font-size: 10px; font-weight: 700; }
+.contact-value { display: block; color: #fff; font-size: 12px; overflow-wrap: anywhere; }
+.whatsapp-link { text-decoration: underline; text-underline-offset: 3px; }
+.contact-note { display: none; }
+.contact-note br { display: none; }
+.sidebar .objective-card .section-heading { display: none; }
+.objective-card p + p { margin-top: 12px; }
+.objective-note { margin-top: 17px; color: #b8cce3; font-size: 11px; line-height: 1.6; }
+.objective-note > span { display: none; }
+.technical-list { margin-top: 14px; }
+.technical-list li { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 3px 8px; padding: 8px 0; border-bottom: 1px solid #38506e; font-size: 12px; }
+.technical-list li:last-child { border-bottom: 0; }
+.level { color: #b8cce3; font-size: 10px; }
+.skill-tags { margin-top: 16px; }
+.skill-tags li { margin-top: 6px; font-size: 12px; }
+.skill-tags li::before { content: "•"; margin-right: 8px; color: #b8cce3; }
+.language-list { display: grid; gap: 10px; margin-top: 19px; }
+.language-list li { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 4px 10px; font-size: 12px; }
+.language-list li > span:last-child { color: #b8cce3; font-size: 10px; }
+
+/* Trajetória à direita, com títulos sublinhados como na referência. */
+.main-content { grid-area: main; min-width: 0; padding: 22px 44px 40px; }
+.main-content > .card + .card { margin-top: 34px; }
+.main-content .card { border: 0; padding: 0; background: transparent; }
+.section-heading { display: flex; align-items: baseline; margin-bottom: 21px; padding-bottom: 9px; border-bottom: 2px solid var(--navy); }
+.section-number { display: none; }
+.main-content h2 { color: var(--navy); font-size: 20px; letter-spacing: -.65px; }
+.main-content h3 { color: var(--navy); font-size: 14px; line-height: 1.4; }
+.first-opportunity { display: block; }
+.opportunity-symbol, .course-symbol { display: none; }
+.experience-meta { margin-top: 8px; color: #777; font-size: 11px; line-height: 1.6; }
+.experience-tasks { padding-left: 17px; margin-top: 14px; list-style: disc; color: #666; font-size: 12px; line-height: 1.75; }
+.experience-tasks li + li { margin-top: 7px; }
+.experience-note { margin-top: 17px; color: #8b8b8b; font-size: 10px; line-height: 1.65; }
+.entry-heading { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 5px 10px; }
+.badge, .course-status { display: inline-block; color: #777; font-size: 10px; font-weight: 600; line-height: 1.5; }
+.institution { margin-top: 7px; color: #4d4d4d; font-size: 12px; line-height: 1.65; }
+.example-inline { color: #929292; font-size: 10px; }
+.entry-detail { margin-top: 5px; color: #777; font-size: 11px; }
+.entry-detail > span { padding-inline: 3px; }
+.education-entry + .education-entry { margin-top: 23px; }
+.course-disclaimer { color: #8b8b8b; font-size: 10px; }
+.course-entry { padding-top: 19px; }
+.course-entry + .course-entry { margin-top: 17px; border-top: 1px solid #dedede; }
+.course-info p { margin-top: 6px; color: #777; font-size: 11px; }
+.course-status { margin-top: 7px; }
+.page-footer { display: none; }
+.model-disclaimer { grid-area: disclaimer; margin: 0; padding: 13px 26px; background: #fff; color: #888; text-align: center; font-size: 9px; line-height: 1.6; border-top: 1px solid #e5e5e5; }
+
+@media screen and (max-width: 800px) {
+  body { padding: 24px 16px 40px; }
+  .page-width:not(.topbar) { grid-template-columns: 34% minmax(0, 1fr); grid-template-rows: 230px 1fr auto; }
+  .hero-content { padding: 38px 28px 24px; }
+  h1 { font-size: 37px; letter-spacing: -1.3px; }
+  .hero-role { font-size: 14px; }
+  .hero-intro { font-size: 11px; }
+  .hero-identity { padding-inline: 22px; }
+  .portrait { width: 160px; }
+  .photo-editor { width: 160px; }
+  .initials { font-size: 46px; }
+  .sidebar { padding: 20px 24px 32px; }
+  .main-content { padding: 20px 28px 32px; }
+}
+@media screen and (max-width: 600px) {
+  body { padding: 16px 12px 28px; }
+  .page-width:not(.topbar) { min-height: 0; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; grid-template-areas: "portrait" "header" "main" "sidebar" "disclaimer"; }
+  .hero-identity { padding: 26px; }
+  .portrait { width: 150px; }
+  .photo-editor { width: 150px; }
+  .hero-content { padding: 28px 26px 12px; text-align: left; }
+  h1 { margin-left: 0; max-width: none; font-size: 36px; }
+  .hero-role { font-size: 15px; }
+  .hero-intro { font-size: 12px; }
+  .main-content { padding: 24px 26px 32px; }
+  .sidebar { padding: 30px 26px; }
+  .sidebar h2 { font-size: 19px; }
+  .sidebar p, .contact-value, .technical-list li, .skill-tags li, .language-list li { font-size: 13px; }
+  .main-content > .card + .card { margin-top: 30px; }
+}
+
+@page { size: A4; margin: 0; }
+@media print {
+  html, body { width: 100%; margin: 0; padding: 0; background: white; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font-size: 9pt; }
+  .skip-link, .topbar, [data-editor-ui] { display: none !important; }
+  .page-width:not(.topbar) { width: 210mm; min-height: 297mm; margin: 0; box-shadow: none; grid-template-columns: 70mm minmax(0, 1fr); grid-template-rows: 61mm 1fr auto; }
+  .hero-content { padding: 13mm 10mm 6mm; }
+  h1 { font-size: 29pt; max-width: 108mm; letter-spacing: -1px; }
+  .hero-role { font-size: 11pt; margin-top: 3mm; }
+  .hero-intro { font-size: 8pt; margin-top: 2mm; }
+  .hero-eyebrow { font-size: 6pt; }
+  .hero-identity { padding: 8mm 6mm; }
+  .portrait { width: 46mm; }
+  .photo-editor { width: 46mm; }
+  .initials { font-size: 34pt; }
+  .sidebar { padding: 5mm 8mm 8mm; }
+  .sidebar .card + .card { margin-top: 7mm; }
+  .sidebar h2 { font-size: 12pt; }
+  .sidebar p, .contact-value, .technical-list li, .skill-tags li, .language-list li { font-size: 8pt; }
+  .main-content { padding: 5mm 10mm 8mm; }
+  .main-content > .card + .card { margin-top: 7mm; }
+  .main-content h2 { font-size: 13pt; }
+  .main-content h3 { font-size: 9pt; }
+  .section-heading { margin-bottom: 4mm; padding-bottom: 2mm; }
+  .experience-tasks, .institution { font-size: 8pt; }
+  .experience-tasks { margin-top: 3mm; }
+  .experience-tasks li + li { margin-top: 1.5mm; }
+  .card, .education-entry, .course-entry { break-inside: avoid; page-break-inside: avoid; }
+  h2, h3 { break-after: avoid; }
+  .model-disclaimer { font-size: 6pt; padding: 2mm 6mm; }
+}

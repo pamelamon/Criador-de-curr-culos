@@ -1,0 +1,44 @@
+/* PROPOSTA 01 · ESSENCIAL
+   Uma composição editorial: branco, linhas discretas e nome em fonte serifada.
+   A base local cuida dos textos, dos links e da impressão. */
+@import url("../base.css");
+:root { --canvas: #f1f0ed; --ink: #26322e; --muted: #5c6761; --accent: #42634f; --soft: #eff3ee; --line: #dce2da; }
+.resume { display: grid; grid-template-columns: 290px minmax(0, 1fr); grid-template-areas: "hero hero" "sidebar main" "footer footer"; border: 1px solid #e0e1da; box-shadow: 0 14px 50px rgb(38 50 46 / 5%); }
+.identity { grid-area: hero; padding: 54px 52px 42px; border-bottom: 1px solid var(--line); }
+.identity h1 { font-family: Georgia, 'Times New Roman', serif; font-weight: 400; font-size: clamp(40px, 5vw, 64px); letter-spacing: -2.5px; margin-top: 16px; max-width: calc(100% - 140px); }
+.eyebrow { font-size: 9px; letter-spacing: 2.6px; }
+.role { color: var(--muted); font-size: 15px; }
+.intro { font-size: 13px; }
+.location { color: var(--muted); }
+.monogram { position: absolute; top: 60px; right: 52px; width: 92px; height: 92px; border: 1px solid #9fab9f; font-family: Georgia, 'Times New Roman', serif; color: var(--accent); }
+.draft { position: absolute; right: 52px; bottom: 40px; color: var(--muted); }
+.sidebar { grid-area: sidebar; padding: 36px 30px 40px 42px; background: #f9faf7; border-right: 1px solid var(--line); }
+.sidebar .kicker { letter-spacing: 1.3px; color: var(--accent); }
+.trajectory { grid-area: main; padding: 38px 48px 40px; }
+.trajectory > section + section { padding-top: 28px; border-top: 1px solid var(--line); }
+.heading { align-items: baseline; }
+.number { font-family: Georgia, 'Times New Roman', serif; font-size: 16px; font-weight: 400; }
+.statement { padding-left: 15px; border-left: 2px solid #8fa18e; background: none; font-family: Georgia, 'Times New Roman', serif; font-size: 15px; }
+.tags li { border-radius: 0; }
+.resume-footer { padding-inline: 42px; }
+@media screen and (max-width: 900px) {
+  .resume { grid-template-columns: 250px minmax(0, 1fr); }
+  .identity { padding-inline: 36px; }
+  .sidebar { padding: 30px 24px; }
+  .trajectory { padding: 32px 28px; }
+  .monogram { right: 36px; }
+}
+@media screen and (max-width: 700px) {
+  .resume { grid-template-columns: minmax(0, 1fr); grid-template-areas: "hero" "main" "sidebar" "footer"; }
+  .identity { padding: 32px 24px; }
+  .identity h1 { max-width: none; font-size: 42px; letter-spacing: -1.7px; }
+  .monogram { display: none; }
+  .draft { position: static; margin-top: 24px; }
+  .trajectory { padding: 30px 24px; }
+  .sidebar { padding: 28px 24px; border-right: 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+  .sidebar section + section { margin-top: 0; }
+}
+@media screen and (max-width: 480px) {
+  .sidebar { grid-template-columns: minmax(0, 1fr); }
+  .identity h1 { font-size: 36px; }
+}

@@ -1,0 +1,49 @@
+/* PROPOSTA 02 · HORIZONTE
+   Uma coluna azul contínua concentra a identidade e as competências.
+   O conteúdo principal usa uma linha do tempo discreta. */
+@import url("../base.css");
+:root { --canvas: #eef2f7; --ink: #17314f; --muted: #54667c; --accent: #245fa1; --soft: #edf3fc; --line: #dce5ef; }
+.resume { display: grid; grid-template-columns: 340px minmax(0, 1fr); grid-template-rows: auto 1fr auto; grid-template-areas: "hero main" "sidebar main" "footer footer"; border-radius: 12px; overflow: hidden; box-shadow: 0 12px 45px rgb(23 49 79 / 8%); }
+.identity { grid-area: hero; background: #17314f; color: white; padding: 38px 34px 30px; }
+.monogram { width: 62px; height: 62px; font-size: 25px; letter-spacing: -1px; border: 1px solid #6582a4; border-radius: 50%; color: #dceaff; margin-bottom: 28px; }
+.eyebrow { color: #abc9ed; font-size: 9px; letter-spacing: 1.6px; }
+.identity h1 { font-size: 44px; letter-spacing: -2px; margin-top: 15px; }
+.role { font-size: 14px; color: #dce7f5; }
+.intro { font-size: 13px; color: #c4d3e7; }
+.location { color: #d5e2f2; }
+.draft { color: #b6cde8; margin-top: 22px; font-size: 8px; }
+.sidebar { grid-area: sidebar; padding: 0 34px 36px; background: #17314f; color: #f3f7ff; --line: #385574; }
+.sidebar section:first-child { border-top: 1px solid #385574; padding-top: 26px; }
+.sidebar h2 { color: #f3f7ff; font-size: 17px; }
+.sidebar .kicker { color: #aec9ec; letter-spacing: 1.2px; }
+.sidebar .contacts .label, .sidebar .level { color: #b9cce5; }
+.sidebar .tags li { border-color: #45617f; background: #213f60; }
+.trajectory { grid-area: main; padding: 48px 42px; }
+.trajectory > section + section { margin-top: 38px; }
+.heading { padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+.number { background: var(--soft); width: 31px; height: 31px; border-radius: 50%; display: grid; place-items: center; }
+.education { border-left: 2px solid #aac7e8; padding-left: 18px; }
+.statement { border-radius: 6px; }
+.experience { background: #f6f8fc; border-radius: 8px; padding: 21px; }
+.resume-footer { background: #f8fafd; }
+@media screen and (max-width: 1000px) {
+  .resume { grid-template-columns: 290px minmax(0, 1fr); }
+  .identity { padding: 32px 28px 26px; }
+  .identity h1 { font-size: 38px; }
+  .sidebar { padding-inline: 28px; }
+  .trajectory { padding: 38px 30px; }
+}
+@media screen and (max-width: 700px) {
+  .resume { grid-template-columns: minmax(0, 1fr); grid-template-areas: "hero" "main" "sidebar" "footer"; }
+  .identity { padding: 32px 25px; }
+  .monogram { margin-bottom: 22px; width: 52px; height: 52px; }
+  .identity h1 { font-size: 43px; max-width: 430px; }
+  .trajectory { padding: 30px 24px; }
+  .sidebar { padding: 28px 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+  .sidebar section:first-child { border-top: 0; padding-top: 0; }
+  .sidebar section + section { margin-top: 0; }
+}
+@media screen and (max-width: 480px) {
+  .sidebar { grid-template-columns: minmax(0, 1fr); }
+  .identity h1 { font-size: 38px; }
+}

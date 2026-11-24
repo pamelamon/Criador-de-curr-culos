@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Crie seu currículo: preencha seus dados, escolha entre modelos e cores e exporte a versão atualizada para PDF.">
+  <meta name="theme-color" content="#142b49">
+  <title>Criador de currículos</title>
+  <link rel="stylesheet" href="assets/css/criador.css">
+  <script src="assets/js/estilos-exportacao.js" defer></script>
+  <script src="assets/js/modelos.js" defer></script>
+  <script src="assets/js/criador.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#editor-form">Pular para o formulário</a>
+  <header class="app-header">
+    <a href="#" class="app-brand" aria-label="Criador de currículos"><span class="brand-mark" aria-hidden="true">c.</span><span>currículo<span class="brand-light">digital</span></span></a>
+    <div class="document-picker"><label class="sr-only" for="resume-picker">Currículo salvo neste navegador</label><select id="resume-picker"></select><button type="button" class="button button-quiet" data-app-action="new">Novo currículo</button></div>
+  </header>
+  <main class="app-main">
+    <section class="workspace-heading" aria-labelledby="app-title">
+      <div><p class="eyebrow">UM MODELO PARA CADA TRAJETÓRIA</p><h1 id="app-title">Monte seu currículo.</h1><p class="intro">Preencha seus dados, escolha o visual e confira o resultado.</p></div>
+      <div class="main-actions"><button class="button" type="button" data-app-action="view">Visualizar</button><button class="button" type="button" data-app-action="download">Baixar currículo</button><button class="button button-primary" type="button" data-app-action="pdf">Exportar PDF</button></div>
+    </section>
+    <p id="app-status" class="app-status" role="status" aria-live="polite">Seus dados ficam salvos neste navegador.</p>
+    <div class="workspace">
+      <section class="editor-panel" aria-label="Preencher e personalizar currículo">
+        <nav class="editor-tabs" role="tablist" aria-label="Etapas do currículo">
+          <button type="button" role="tab" aria-selected="true" aria-controls="panel-personal" data-step="personal">Dados pessoais</button>
+          <button type="button" role="tab" aria-selected="false" aria-controls="panel-experience" data-step="experience" tabindex="-1">Experiência</button>
+          <button type="button" role="tab" aria-selected="false" aria-controls="panel-education" data-step="education" tabindex="-1">Formação</button>
+          <button type="button" role="tab" aria-selected="false" aria-controls="panel-skills" data-step="skills" tabindex="-1">Competências</button>
+          <button type="button" role="tab" aria-selected="false" aria-controls="panel-design" data-step="design" tabindex="-1">Modelo e cores</button>
+        </nav>
+        <form id="editor-form" novalidate>
+          <section id="panel-personal" class="form-panel" role="tabpanel" aria-labelledby="personal-title">
+            <div class="panel-heading"><h2 id="personal-title">Vamos começar por você</h2><p>Informe os dados que deseja apresentar no currículo.</p></div>
+            <div class="personal-photo">
+              <div class="photo-manager"><div class="photo-slot"><img id="personal-photo-image" alt="Sua foto de perfil" hidden><span id="personal-photo-initials" aria-hidden="true">SN</span><button type="button" class="photo-upload" data-app-action="upload-photo" aria-label="Enviar foto de perfil" title="Enviar foto de perfil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V3M7 8l5-5 5 5M4 16v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4"/></svg></button></div><div class="photo-actions" id="personal-photo-actions" hidden><button class="text-button" type="button" data-app-action="upload-photo">Alterar foto</button><button class="text-button text-button-danger" type="button" data-app-action="remove-photo">Remover foto</button></div></div>
+              <div><strong>Foto do currículo</strong><p class="field-hint">Opcional. JPG, PNG ou WebP de até 2 MB.</p></div>
+              <input type="file" id="photo-file" accept="image/jpeg,image/png,image/webp" hidden>
+            </div>
+            <label class="field">Nome completo <span class="required">*</span><input id="full-name" name="name" data-bind="personal.name" autocomplete="name" placeholder="Seu nome completo" maxlength="120" required></label>
+            <div class="field-row"><label class="field">Data de nascimento<input id="personal-birth-date" type="date" data-bind="personal.birthDate" autocomplete="bday" aria-describedby="age-hint"></label><label class="field">Idade<input id="personal-age" type="number" min="0" readonly placeholder="Automática" aria-describedby="age-hint"></label></div>
+            <p id="age-hint" class="field-hint">A idade é calculada automaticamente pela data de nascimento. O preenchimento é opcional.</p>
+            <label class="field">Cargo ou área de atuação<input data-bind="personal.role" autocomplete="organization-title" placeholder="Ex.: Auxiliar de veterinária" maxlength="150"></label>
+            <div class="field-row"><label class="field">E-mail<input id="personal-email" type="email" data-bind="personal.email" autocomplete="email" placeholder="Seu e-mail" maxlength="160"></label><label class="field">WhatsApp com DDD<input id="personal-phone" type="tel" data-bind="personal.phone" autocomplete="tel" placeholder="(00) 00000-0000" maxlength="30"></label></div>
+            <label class="field">Cidade e estado<input data-bind="personal.city" autocomplete="address-level2" placeholder="Sua cidade e UF" maxlength="120"></label>
+            <label class="field">Resumo profissional<textarea data-bind="personal.summary" rows="5" placeholder="Conte sua experiência, suas qualidades e a oportunidade que procura." maxlength="5000"></textarea></label>
+            <p class="field-hint">O nome é obrigatório para baixar ou exportar. Os demais campos são opcionais.</p>
+            <button class="button button-primary button-next" type="button" data-go-step="experience">Continuar preenchendo</button>
+          </section>
+          <section id="panel-experience" class="form-panel" role="tabpanel" aria-labelledby="experience-title" hidden>
+            <div class="panel-heading"><h2 id="experience-title">Experiência profissional</h2><p>Adicione empregos, estágios ou outras experiências relevantes.</p></div>
+            <div id="experience-list" class="entry-list"></div>
+            <button class="button button-add" type="button" data-add="experience">Adicionar experiência</button>
+            <button class="button button-primary button-next" type="button" data-go-step="education">Continuar para formação</button>
+          </section>
+          <section id="panel-education" class="form-panel" role="tabpanel" aria-labelledby="education-title" hidden>
+            <div class="panel-heading"><h2 id="education-title">Formação e cursos</h2><p>Inclua sua instituição de ensino e a situação de cada curso.</p></div>
+            <h3 class="form-subtitle">Formação acadêmica</h3><div id="education-list" class="entry-list"></div><button class="button button-add" type="button" data-add="education">Adicionar formação</button>
+            <h3 class="form-subtitle separated">Cursos complementares</h3><div id="courses-list" class="entry-list"></div><button class="button button-add" type="button" data-add="courses">Adicionar curso</button>
+            <button class="button button-primary button-next" type="button" data-go-step="skills">Continuar para competências</button>
+          </section>
+          <section id="panel-skills" class="form-panel" role="tabpanel" aria-labelledby="skills-title" hidden>
+            <div class="panel-heading"><h2 id="skills-title">Suas competências</h2><p>Mostre o que sabe fazer e como costuma trabalhar.</p></div>
+            <h3 class="form-subtitle">Habilidades técnicas</h3><div id="technical-list" class="entry-list"></div><button class="button button-add" type="button" data-add="technical">Adicionar habilidade</button>
+            <label class="field separated">Habilidades pessoais<textarea id="personal-skills" data-bind="personalSkillsText" rows="4" placeholder="Uma habilidade por linha.&#10;Organização&#10;Comunicação&#10;Trabalho em equipe" maxlength="3000"></textarea></label>
+            <h3 class="form-subtitle separated">Idiomas</h3><div id="languages-list" class="entry-list"></div><button class="button button-add" type="button" data-add="languages">Adicionar idioma</button>
+            <button class="button button-primary button-next" type="button" data-go-step="design">Escolher modelo e cores</button>
+          </section>
+          <section id="panel-design" class="form-panel" role="tabpanel" aria-labelledby="design-title" hidden>
+            <div class="panel-heading"><h2 id="design-title">Escolha seu visual</h2><p>Os dados são os mesmos em todos os modelos. Mude o estilo quando quiser.</p></div>
+            <div id="template-options" class="template-options" aria-label="Modelos de currículo"></div>
+            <h3 class="form-subtitle separated">Cor do currículo</h3><div id="color-options" class="color-options" aria-label="Cores do currículo"></div>
+            <label class="custom-color" for="custom-color"><span>Escolher outra cor</span><input type="color" id="custom-color" value="#142b49"></label>
+            <button class="button button-primary button-next" type="button" data-app-action="view">Visualizar meu currículo</button>
+          </section>
+        </form>
+        <div class="editor-footer">Alterações salvas automaticamente neste navegador.</div>
+      </section>
+      <section class="preview-panel" aria-labelledby="preview-title"><div class="preview-heading"><div><h2 id="preview-title">Seu currículo, em tempo real</h2><p id="preview-caption">Clássico · Azul-marinho</p></div><span class="preview-badge">PRÉVIA</span></div><div class="preview-stage"><div class="preview-canvas"><iframe id="resume-preview" title="Prévia do currículo" sandbox="allow-same-origin allow-modals"></iframe></div></div><p class="preview-note">Ajuste automático para uma folha A4. Quanto mais conteúdo, menor será o tamanho dos textos.</p></section>
+    </div>
+  </main>
+  <dialog id="preview-dialog"><div class="dialog-header"><h2>Visualização do currículo</h2><div><button class="button button-primary" type="button" data-app-action="pdf">Exportar PDF</button><button class="button" type="button" data-app-action="close-preview">Voltar à edição</button></div></div><div class="preview-stage modal-stage"><div class="preview-canvas"><iframe id="full-preview" title="Currículo em visualização ampliada" sandbox="allow-same-origin allow-modals"></iframe></div></div></dialog>
+  <noscript><p class="noscript">Ative o JavaScript no navegador para preencher e personalizar o currículo.</p></noscript>
+</body>
+</html>
